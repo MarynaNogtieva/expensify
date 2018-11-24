@@ -6,14 +6,46 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
 const ExpenseDashBoardPage = () => {
-  <div> 
-   this is from my dashboard component
+ return(
+  <div>
+   this is from my ExpenseDashBoardPage component
   </div>
+ );
 };
+
+const AddExpensePage = () => {
+  return(
+    <div>
+    this is from my AddExpensePage  component
+   </div>
+  )
+};
+
+const EditPage = () => {
+  return(
+    <div>
+    this is from my EditPage component
+   </div>
+  )
+};
+
+const HelpPage = () => {
+  return(
+    <div>
+    this is from my HelpPage component
+   </div>
+  )
+};
+
 const routes = (
   <BrowserRouter>
-    <Route path="/" component={ExpenseDashBoardPage} />
+    <div>
+      <Route path="/" component={ ExpenseDashBoardPage } exact={true}/>
+      <Route path='/create' component={ AddExpensePage } />
+      <Route path="/edit" component={ EditPage } />
+      <Route path='/help' component={ HelpPage }  />
+    </div>
   </BrowserRouter>
 );
 
-ReactDOM.render(<p>boilerplate</p>, document.getElementById('app'));
+ReactDOM.render(routes, document.getElementById('app'));
