@@ -16,7 +16,7 @@ import { BrowserRouter, Route, Switch }
    <Switch>
      <Route path="/" component={ ExpenseDashBoardPage } exact={true}/>
      <Route path='/create' component={ AddExpensePage } />
-     <Route path="/edit" component={ EditPage } />
+     <Route path="/edit/:id" component={ EditPage } />
      <Route path='/help' component={ HelpPage }  />
      <Route component={ NotFoundPage } />
    </Switch>
