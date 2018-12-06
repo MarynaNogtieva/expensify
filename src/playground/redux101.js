@@ -4,11 +4,13 @@ const store = createStore((state = { count: 0 }, action) => {
   console.log('running');
   switch(action.type){
     case 'increment_count':
+      const incrementBy = action.incrementBy ? action.incrementBy : 1;
       return {
-        count: state.count + 1
+        count: state.count + incrementBy
       }
     case 'decrement_count':
-       return {...state, count: state.count - 1}
+      const decrementBy = action.decrementBy ? action.decrementBy : 1;
+      return {...state, count: state.count - decrementBy }
       // return {
       //   count: state.count - 1
       // }
@@ -16,12 +18,17 @@ const store = createStore((state = { count: 0 }, action) => {
       return {
         count: 0
       }
+    case 'set':
+      const value = typeof action.value === 'number' ? action.value : 0
+      return { ...state, count: value }
     default:
       return state;
   }
 });
 
-
+store.subscribe(() => {
+  console.log(store.getState());
+});
 
 // increment count
 // Actions - object that gets sent to the store
@@ -31,7 +38,8 @@ const store = createStore((state = { count: 0 }, action) => {
 // 1. increment
 store.dispatch(
   {
-    type: 'increment_count'
+    type: 'increment_count',
+    incrementBy: 5
   }
 );
 store.dispatch(
@@ -40,7 +48,13 @@ store.dispatch(
   }
 );
 
-console.log(store.getState());
+
+store.dispatch(
+  {
+    type: 'decrement_count',
+    decrementBy: 3
+  }
+);
 
 store.dispatch(
   {
@@ -48,7 +62,6 @@ store.dispatch(
   }
 );
 
-console.log(store.getState());
 
 store.dispatch(
   {
@@ -56,4 +69,9 @@ store.dispatch(
   }
 );
 
-console.log(store.getState());
+store.dispatch(
+  {
+    type: 'set',
+    value: 101
+  }
+);
