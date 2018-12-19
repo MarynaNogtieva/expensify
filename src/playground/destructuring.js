@@ -47,3 +47,22 @@ const book = {
 
 const { name: publisherName = 'Self-Published' } = book.publisher
 console.log(publisherName);
+
+
+// ARRAY DESTRUCTURING
+
+const address = ['1299 S Juniper Street', 'Philadelphia', 'Pennsylvania', '19147'];
+console.log(` You are in ${address[0]} ${address[1]}`);
+
+// const [addr_street, addr_city, addr_state, addr_zip] = address;
+const [, addr_city, addr_state = 'New York' ] = address; // no zip, no street
+// const [, , addr_state] = address; // only state, no city, zip, street
+
+
+console.log(` You are in ${addr_city} ${addr_state}`);
+
+const item = ['Coffee (hot)', '$2.00', '$2.50', '$2.75'];
+
+const [coffee, ,mediumPrice] = item;
+
+console.log(`A midium ${coffee} costs ${mediumPrice}`);
