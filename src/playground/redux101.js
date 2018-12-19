@@ -2,10 +2,10 @@ import { createStore } from 'redux';
 
 // Action generaters => functions that return action objects
 
-const incrementCount = ({ incrementBy } = {}) => {
+const incrementCount = ({ incrementBy = 1 } = {}) => {
   return {
     type: 'increment_count',
-    incrementBy: typeof incrementBy === 'number' ? incrementBy : 1
+    incrementBy: incrementBy
   }
 }
 
