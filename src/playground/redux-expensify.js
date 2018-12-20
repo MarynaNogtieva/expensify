@@ -31,16 +31,19 @@ const removeExpense = ({id} = {}) => {
 };
 
 // EDIT EXPENSE
-const editExpense = () => {
+const editExpense = (id, updates) => {
   return {
-
+    type: 'EDIT_EXPENSE',
+    id,
+    updates
   }
 };
 
 // SET_TEXT_FILTER
-const setTextFilter = () => {
+const setTextFilter = (text = '') => {
   return {
-
+    type: 'SET_TEXT_FILTER',
+    text
   }
 };
 
@@ -77,11 +80,22 @@ const setEndDate = () => {
 const expensesReducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_EXPENSE':
-      // return state.concat(action.expense)
-      return [...state, action.expense ]
+      // return state.concat(action.expense);
+      return [...state, action.expense ];
     case 'REMOVE_EXPENSE':
       return state.filter(({id}) => {
         return id !== action.id;
+      });
+    case 'EDIT_EXPENSE':
+      return state.map((expense) => {
+        if(expense.id === action.id) {
+          return {
+            ...expense,
+            ...action.updates // override values that user wants to change
+          }
+        } else {
+          return expense;
+        }
       });
     default:
       return state;
@@ -98,6 +112,8 @@ const filterDefaultState = {
 
 const filtersReducer = (state = filterDefaultState, action) => {
   switch (action.type) {
+    case 'SET_TEXT_FILTER':
+      return {...state, text: action.text}
     default:
       return state;
   }
@@ -122,7 +138,14 @@ const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 1200
 console.log(expenseOne)
 const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300 }));
 
+
 store.dispatch(removeExpense({ id: expenseOne.expense.id }));
+store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500}));
+
+
+
+store.dispatch(setTextFilter('rent'))
+
 const demoState = {
   expenses: [{
     id: 'fewfefda',
