@@ -48,30 +48,34 @@ const setTextFilter = (text = '') => {
 };
 
 // SORT_BY_DATE
-const sortBydate = () => {
+const sortByDate = (sortBy = 'date') => {
   return {
-
+    type: 'SORT_BY_DATE',
+    sortBy
   }
 };
 
 // SORT_BY_AMOUNT
-const sortByAmount = () => {
+const sortByAmount = (sortBy = 'amount') => {
   return {
-
+    type: 'SORT_BY_AMOUNT',
+    sortBy
   }
 };
 
 // SET_START_DATE
-const setStartDate = () => {
+const setStartDate = (startDate) => {
   return {
-
+    type: 'SET_START_DATE',
+    startDate
   }
 };
 
 // SET_END_DATE
-const setEndDate = () => {
+const setEndDate = (endDate) => {
   return {
-
+    type: 'SET_END_DATE',
+    endDate
   }
 };
 
@@ -114,12 +118,33 @@ const filtersReducer = (state = filterDefaultState, action) => {
   switch (action.type) {
     case 'SET_TEXT_FILTER':
       return {...state, text: action.text}
+    case 'SORT_BY_AMOUNT':
+      return {...state, sortBy: action.sortBy }
+    case 'SORT_BY_DATE':
+      return {...state, sortBy: action.sortBy }
+    case 'SET_START_DATE':
+      return {...state, startDate: action.startDate }
+    case 'SET_END_DATE':
+      return {...state, endDate: action.endDate }
     default:
       return state;
   }
 }
 
-//store create
+// get visible expenses
+// Jan 1st 1970
+// timestamps (miliseconds)
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+
+  return expenses.filter((expense) => {
+    const startDateMantch = typeof startDate !== 'number' || expense.createdAt >= startDate;
+    const endDateMatch = typeof startDate !== 'number' || expense.createdAt <= endDate;
+    const textMatch = true;
+    return startDateMantch && endDateMatch && textMatch;
+  });
+};
+
+// store create
 
 const store = createStore(
   combineReducers({
@@ -131,20 +156,30 @@ const store = createStore(
 
 // to get channges
 store.subscribe(() => {
-  console.log(store.getState());
+
+  const state = store.getState();
+  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+  console.log(visibleExpenses);
 })
 
-const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 1200 }));
+const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 1200, createdAt: 1000 }));
 console.log(expenseOne)
-const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300 }));
+const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300, createdAt: -1000 }));
 
 
-store.dispatch(removeExpense({ id: expenseOne.expense.id }));
+// store.dispatch(removeExpense({ id: expenseOne.expense.id }));
 store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500}));
 
 
 
-store.dispatch(setTextFilter('rent'))
+// store.dispatch(setTextFilter('rent'));
+
+// store.dispatch(sortByAmount());
+// store.dispatch(sortByDate());
+
+store.dispatch(setStartDate(-2000));
+// store.dispatch(setStartDate());
+ store.dispatch(setEndDate(0));
 
 const demoState = {
   expenses: [{
