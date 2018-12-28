@@ -141,6 +141,12 @@ const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
     const endDateMatch = typeof startDate !== 'number' || expense.createdAt <= endDate;
     const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
     return startDateMantch && endDateMatch && textMatch;
+  }).sort((a, b) => {
+    if (sortBy === 'date') {
+      return a.createdAt < b.createdAt ? 1 : -1;
+    } else if (sortBy === 'amount') {
+      return a.amount < b.amount ? 1 : -1;
+    }
   });
 };
 
@@ -162,9 +168,10 @@ store.subscribe(() => {
   console.log(visibleExpenses);
 })
 
-const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 1200, createdAt: 1000 }));
+const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 1200, createdAt: -10000 }));
 console.log(expenseOne)
 const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300, createdAt: -1000 }));
+const expenseThree = store.dispatch(addExpense({ description: 'Rent', amount: 900, createdAt: -21000 }));
 
 
 // store.dispatch(removeExpense({ id: expenseOne.expense.id }));
@@ -172,10 +179,10 @@ store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500}));
 
 
 
-store.dispatch(setTextFilter('rent'));
+// store.dispatch(setTextFilter('rent'));
 
 // store.dispatch(sortByAmount());
-// store.dispatch(sortByDate());
+store.dispatch(sortByDate());
 
 // store.dispatch(setStartDate(-2000));
 // store.dispatch(setStartDate());
