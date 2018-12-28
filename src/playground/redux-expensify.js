@@ -139,7 +139,7 @@ const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
   return expenses.filter((expense) => {
     const startDateMantch = typeof startDate !== 'number' || expense.createdAt >= startDate;
     const endDateMatch = typeof startDate !== 'number' || expense.createdAt <= endDate;
-    const textMatch = true;
+    const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
     return startDateMantch && endDateMatch && textMatch;
   });
 };
@@ -172,14 +172,14 @@ store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500}));
 
 
 
-// store.dispatch(setTextFilter('rent'));
+store.dispatch(setTextFilter('rent'));
 
 // store.dispatch(sortByAmount());
 // store.dispatch(sortByDate());
 
-store.dispatch(setStartDate(-2000));
+// store.dispatch(setStartDate(-2000));
 // store.dispatch(setStartDate());
- store.dispatch(setEndDate(0));
+// store.dispatch(setEndDate(0));
 
 const demoState = {
   expenses: [{
