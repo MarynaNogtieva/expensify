@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 
@@ -30,5 +31,11 @@ store.subscribe(() => {
 
  store.dispatch(setEndDate(30000));
 
+ const jsx = (
+   <Provider store={store}>
+    <AppRouter />
+   </Provider>
+ )
+ ReactDOM.render(jsx, document.getElementById('app'));
 
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+// ReactDOM.render(<AppRouter />, document.getElementById('app'));
