@@ -31,10 +31,6 @@ store.subscribe(() => {
 
  store.dispatch(setEndDate(30000));
 
- setTimeout(() => {
-  store.dispatch(setTextFilter('gas'));
- }, 5000)
-
  const jsx = (
    <Provider store={store}>
     <AppRouter />
