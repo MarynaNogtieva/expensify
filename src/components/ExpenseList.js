@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-const ExpenseList = ({expenses}) => {
+const ExpenseList = ({expenses, filters}) => {
   return (
     <div>
       <h1>Expense List</h1>
@@ -10,13 +10,16 @@ const ExpenseList = ({expenses}) => {
           return <p key={ expense.id }>{ expense.description }</p>
         })
       }
+      { filters.text }
     </div>
   )
 };
 
-const ConnectedExpenseList = connect((state) => {
+const mapStateToProps = (state) => {
   return {
-    expenses: state.expenses
+    expenses: state.expenses,
+    filters: state.filters
   };
-})(ExpenseList);
-export default ConnectedExpenseList;
+};
+
+export default connect(mapStateToProps)(ExpenseList);
