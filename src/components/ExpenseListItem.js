@@ -1,20 +1,11 @@
 import React from 'react';
 
 
-const ExpenseListItem = ({ expenses }) => {
+const ExpenseListItem = ({ description, amount, createdAt }) => {
   return (
     <div>
-      {
-        expenses.map((expense) => {
-          return (
-          <p key={ expense.id }>
-            { expense.description } &nbsp;
-            { expense.amount } &nbsp;
-            { expense.createdAt }
-          </p>
-          )
-        })
-      }
+      <h3> { description } </h3>
+      <p> { amount } - { createdAt }</p>
     </div>
   );
 };
