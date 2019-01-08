@@ -19,7 +19,9 @@ store.dispatch(addExpense({ description: 'Water Bill', amount: 100, createdAt: 2
 
 store.dispatch(addExpense({ description: 'Gas bill', amount: 40, createdAt: 21000}));
 
-store.dispatch(setTextFilter('bill'));
+store.dispatch(addExpense({ description: 'Rent bill', amount: 109500}));
+
+// store.dispatch(setTextFilter('bill'));
 
 store.subscribe(() => {
   const state = store.getState();
