@@ -31,7 +31,7 @@ store.subscribe(() => {
 
  store.dispatch(setStartDate(-2000));
 
- store.dispatch(setEndDate(30000));
+ store.dispatch(setEndDate(30000000000000000 * 1000000000000));
 
  const jsx = (
    <Provider store={store}>
