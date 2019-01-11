@@ -5,7 +5,7 @@ import { editExpense, removeExpense } from '../actions/expenses';
 
 
 const EditPage = (props) => {
-  const id = props.match.params.id;
+  const id = props.expense.id;
   return(
     <div>
     <ExpenseForm
