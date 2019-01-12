@@ -29,9 +29,9 @@ store.subscribe(() => {
   console.log(visibleExpenses);
 })
 
- store.dispatch(setStartDate(-2000));
+//  store.dispatch(setStartDate(-2000));
 
- store.dispatch(setEndDate(30000000000000000 * 1000000000000));
+//  store.dispatch(setEndDate(30000000000000000 * 1000000000000));
 
  const jsx = (
    <Provider store={store}>
