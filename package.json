@@ -9,7 +9,8 @@
     "build": "webpack",
     "build-babel": "babel srs/app.js--out-file=public/scripts/app.js --presets=env,react --watch",
     "build-webpack-old": "webpack --watch",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "test": "jest"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
@@ -25,6 +26,7 @@
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "0.28.4",
+    "jest": "20.0.4",
     "live-server": "^1.2.0",
     "moment": "2.18.1",
     "node-sass": "4.5.3",
