@@ -1,0 +1,93 @@
+import moment from 'moment';
+import filtersReducer from '../../reducers/filters';
+
+test('should setup default filter values', () => {
+  const state = filtersReducer(undefined, { type: '@@INIT'});
+
+  expect(state).toEqual({
+    text: '',
+    sortBy: 'date',
+    startDate: moment().startOf('month'),
+    endDate: moment().endOf('month')
+  })
+})
+
+test('should set sortBy to amount', () => {
+  const state = filtersReducer(undefined, { type: 'SORT_BY_AMOUNT', sortBy: 'amount'});
+
+  expect(state.sortBy).toBe('amount');
+})
+
+test('should setup sortBy to date', () => {
+  const currentState = {
+    text: '',
+    startDate: undefined,
+    endDate: undefined,
+    sortBy: 'amount'
+  }
+
+  const action = {
+    type: 'SORT_BY_DATE',
+    sortBy: 'date'
+  }
+
+  const state = filtersReducer(currentState, action);
+
+  expect(state.sortBy).toBe('date');
+})
+
+test('should set text filter', () => {
+  const currentState = {
+    text: '',
+    startDate: undefined,
+    endDate: undefined,
+    sortBy: 'amount'
+  }
+
+  const action = {
+    type: 'SET_TEXT_FILTER',
+    text: 'rent'
+  }
+
+  const state = filtersReducer(currentState, action);
+
+  expect(state.text).toBe(action.text);
+})
+
+test('should set start date', () => {
+  const startDate = moment().add(2, 'days');
+  const currentState = {
+    text: '',
+    startDate: undefined,
+    endDate: undefined,
+    sortBy: 'amount'
+  }
+
+  const action = {
+    type: 'SET_START_DATE',
+    startDate
+  }
+
+  const state = filtersReducer(currentState, action);
+
+  expect(state.startDate).toEqual(startDate);
+})
+
+test('should set end date', () => {
+  const endDate = moment().add(4, 'days');
+  const currentState = {
+    text: '',
+    startDate: undefined,
+    endDate: undefined,
+    sortBy: 'amount'
+  }
+
+  const action = {
+    type: 'SET_END_DATE',
+    endDate
+  }
+
+  const state = filtersReducer(currentState, action);
+
+  expect(state.endDate).toEqual(endDate);
+})
