@@ -12,16 +12,17 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 
+import './firebase/firebase';
 
 const store = configureStore();
 console.log(store.getState());
 
 
-store.dispatch(addExpense({ description: 'Water Bill', amount: 100, createdAt: 2000 }));
+// store.dispatch(addExpense({ description: 'Water Bill', amount: 100, createdAt: 2000 }));
 
-store.dispatch(addExpense({ description: 'Gas bill', amount: 40, createdAt: 21000}));
+// store.dispatch(addExpense({ description: 'Gas bill', amount: 40, createdAt: 21000}));
 
-store.dispatch(addExpense({ description: 'Rent bill', amount: 109500}));
+// store.dispatch(addExpense({ description: 'Rent bill', amount: 109500}));
 
 // store.dispatch(setTextFilter('bill'));
 

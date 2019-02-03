@@ -5,7 +5,7 @@ import numeral from 'numeral';
 
 export const ExpenseListItem = ({ dispatch, id, description, amount, createdAt }) => {
   return (
-    <div>
+    <div key={id}>
       <Link to={`edit/${id}`}>
         <h3> {description} </h3>
       </Link>
