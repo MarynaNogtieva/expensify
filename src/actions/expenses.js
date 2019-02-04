@@ -49,7 +49,17 @@ export const removeExpense = ({id} = {}) => {
   return {
     type: 'REMOVE_EXPENSE',
     id
-  }
+  };
+};
+
+// START REMOVE EXPENSE ASYNC
+export const startRemoveExpense = ({id}) => {
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).remove().then(() => {
+      console.log('removed id ', id);
+      dispatch(removeExpense({ id }));
+    });
+  };
 };
 
 // EDIT EXPENSE
