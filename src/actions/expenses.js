@@ -60,3 +60,12 @@ export const editExpense = (id, updates) => {
     updates
   }
 };
+
+// SET_EXPENSES
+export const setExpenses = (expenses) => ({
+  type: 'SET_EXPENSES',
+  expenses
+});
+
+// async action
+// export const startSetExpenses;
