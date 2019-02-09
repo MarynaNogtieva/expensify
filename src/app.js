@@ -5,7 +5,7 @@ import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 
 import { startSetExpenses } from './actions/expenses';
-
+import { login, logout } from './actions/auth';
 import  getVisibleExpenses  from './selectors/expenses';
 
 import 'normalize.css/normalize.css';
@@ -55,6 +55,7 @@ ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 //confirm if logged in or not
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
+    store.dispatch(login(user.uid))
     store.dispatch(startSetExpenses()).then(() => {
       renederApp();
       if (history.location.pathname === '/') {
@@ -62,6 +63,7 @@ firebase.auth().onAuthStateChanged((user) => {
       }
     });
   } else {
+    store.dispatch(logout())
     renederApp();
     history.push('/');
   }
