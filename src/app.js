@@ -42,19 +42,27 @@ store.subscribe(() => {
    </Provider>
  );
 
-
-
+ let hasRendered = false;
+ const renederApp = () => {
+  if(!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById('app'));
+    hasRendered = true;
+  }
+ };
 // ReactDOM.render(<AppRouter />, document.getElementById('app'));
 ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
-store.dispatch(startSetExpenses()).then(() => {
-  ReactDOM.render(jsx, document.getElementById('app'));
-});
 
 //confirm if logged in or not
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
-    console.log('log in');
+    store.dispatch(startSetExpenses()).then(() => {
+      renederApp();
+      if (history.location.pathname === '/') {
+        history.push('/dashboard');
+      }
+    });
   } else {
+    renederApp();
     history.push('/');
   }
 });
