@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 // import moment = require ('moment');
 
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
  const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -15,7 +16,7 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
-export { firebase, database as default };
+export { firebase, googleAuthProvider, database as default };
 
 // // child removed
 // database.ref('expenses')
