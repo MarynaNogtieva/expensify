@@ -5,16 +5,19 @@ import numeral from 'numeral';
 
 export const ExpenseListItem = ({ dispatch, id, description, amount, createdAt }) => {
   return (
-    <div key={id}>
-      <Link to={`edit/${id}`}>
-        <h3> {description} </h3>
-      </Link>
-      <p>
-        {numeral(amount / 100).format('$0,0.00')} 
-        - 
+    <Link to={`edit/${id}`} key={id}
+    className='list-item'
+    >
+    <div>
+      <h3 className='list-item__title'> {description} </h3>
+      <span className='list-item__sub-title'> 
         {moment(createdAt).format('MMMM Do, YYYY')}
-      </p>
+      </span>
     </div>
+    <h3 className='list-item__data'>
+     {numeral(amount / 100).format('$0,0.00')} 
+    </h3>
+    </Link>
   );
 };
 
